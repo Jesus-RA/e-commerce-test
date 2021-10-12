@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers\api\v1\Auth;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+class LoginController extends Controller
+{
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
+        if( !Auth::attempt( $credentials ) ){
+            return response()->json([
+                'error' => [
+                    'message' => 'Credentials no match our records.'
+                ]
+            ], 403);
+        }
+
+        return response()->json([
+            'data' => [
+                'user' => Auth::user()
+            ]
+        ], 200);
+
+    }
+}
