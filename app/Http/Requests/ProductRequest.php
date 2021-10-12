@@ -29,7 +29,6 @@ class ProductRequest extends FormRequest
             'price' => 'required',
             'status' => 'required',
             'stock' => 'required',
-            'iamges' => 'array|image'
         ];
     }
 }

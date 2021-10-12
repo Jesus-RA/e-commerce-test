@@ -14,7 +14,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = [
+        return [
             'type' => 'products',
             'id' => $this->id,
             'attributes' => [
@@ -24,25 +24,8 @@ class ProductResource extends JsonResource
                 'price' => $this->price,
                 'status' => $this->status,
                 'stock' => $this->stock,
-                'images' => $this->getMedia('images')->map(function($image){
-                    return [
-                        'url' => $image->getUrl()
-                    ];
-                })
             ]
         ];
-
-        // if( $this->getMedia('images')->count() ){
-            
-        //     $data['images'] = $this->getMedia('images')->map(function($image){
-        //         return [
-        //             'url' => $image->getUrl()
-        //         ];
-        //     });
-            
-        // }
-
-        return $data;
 
     }
 }

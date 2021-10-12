@@ -47,13 +47,13 @@ class ProductController extends Controller
         $data = array_merge( $request->all(), ['slug' => $slug]);
         $product = Product::create( $data );
 
-        if( $request->hasFile('images') ){
+        // if( $request->hasFile('images') ){
 
-            $product
-                ->addMultipleMediaFromRequest(['images'])
-                ->each( fn($file)=> $file->toMediaCollection('images') );
+        //     $product
+        //         ->addMultipleMediaFromRequest(['images'])
+        //         ->each( fn($file)=> $file->toMediaCollection('images') );
 
-        }
+        // }
 
         return response()->json([
             'data' => new ProductResource( $product )
@@ -103,11 +103,11 @@ class ProductController extends Controller
             ], 404);
         }
 
-        if( $request->hasFile('images') ){
-            $product
-                ->addMultipleMediaFromRequest(['images'])
-                ->each( fn($file)=> $file->toMediaCollection('images') );
-        }
+        // if( $request->hasFile('images') ){
+        //     $product
+        //         ->addMultipleMediaFromRequest(['images'])
+        //         ->each( fn($file)=> $file->toMediaCollection('images') );
+        // }
 
         $product->update( $request->all() );
 
