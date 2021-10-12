@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\api\v1;
+namespace Tests\Feature\Http\Controllers\api\v1\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,7 +13,7 @@ class RegisterControllerTest extends TestCase
     public function test_it_can_register_user()
     {
         $data = [
-            'name' => 'Usuario nuevo',
+            'name' => 'New User',
             'email' => 'example@webforcehq.com',
             'password' => 'password'
         ];

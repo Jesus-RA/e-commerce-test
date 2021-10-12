@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\api\v1;
+namespace Tests\Feature\Http\Controllers\api\v1\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
@@ -26,7 +26,14 @@ class LoginControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
-                    'user',
+                    'type',
+                    'id',
+                    'attributes' => [
+                        'name',
+                        'email',
+                        'created_at',
+                        'updated_at'
+                    ]
                 ]
             ]);
     }

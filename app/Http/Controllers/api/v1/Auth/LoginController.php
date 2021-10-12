@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\v1\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User\UserResource;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -24,9 +25,7 @@ class LoginController extends Controller
         }
 
         return response()->json([
-            'data' => [
-                'user' => Auth::user()
-            ]
+            'data' => new UserResource( Auth::user() )
         ], 200);
 
     }
