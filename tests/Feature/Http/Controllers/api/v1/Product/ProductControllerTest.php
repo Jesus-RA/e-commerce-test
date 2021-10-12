@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -41,7 +43,7 @@ class ProductControllerTest extends TestCase
             ]);
     }
 
-    public function test_store()
+    public function test_store_without_uploading_images()
     {
         $product = Product::factory()->make();
 
@@ -60,7 +62,10 @@ class ProductControllerTest extends TestCase
                         'description',
                         'price',
                         'status',
-                        'stock'
+                        'stock',
+                        'images' => [
+                            '*' => [ 'url' ]
+                        ]
                     ]
                 ]
             ]);
@@ -85,13 +90,16 @@ class ProductControllerTest extends TestCase
                         'description',
                         'price',
                         'status',
-                        'stock'
+                        'stock',
+                        'images' => [
+                            '*' => [ 'url' ]
+                        ]
                     ]
                 ]
             ]);
     }
 
-    public function test_update()
+    public function test_update_without_uploading_images()
     {
         $product = Product::factory()->create();
 
@@ -112,7 +120,10 @@ class ProductControllerTest extends TestCase
                         'description',
                         'price',
                         'status',
-                        'stock'
+                        'stock',
+                        'images' => [
+                            '*' => [ 'url' ]
+                        ]
                     ]
                 ]
             ]);
@@ -199,6 +210,78 @@ class ProductControllerTest extends TestCase
                     'message'
                 ]
             ]);
+    }
+
+    public function test_store_uploading_images(){
+        Storage::fake('images');
+        $product = Product::factory()->make();
+
+        $product->images = [
+            UploadedFile::fake()->image('product-01.jpg'),
+            UploadedFile::fake()->image('product-02.jpg'),
+            UploadedFile::fake()->image('product-03.jpg')
+        ];
+
+        Sanctum::actingAs( User::factory()->create() );
+
+        $response = $this
+            ->post( route('products.store'), $product->toArray(), ['Accept' => 'application/json'])
+            ->assertStatus( 201 )
+            ->assertJsonStructure([
+                'data' => [
+                    'type',
+                    'id',
+                    'attributes' => [
+                        'name',
+                        'slug',
+                        'description',
+                        'price',
+                        'status',
+                        'stock',
+                        'images' => [
+                            '*' => [ 'url' ]
+                        ]
+                    ]
+                ]
+            ]);
+
+        $this->assertEquals( sizeof($product->images), count($response['data']['attributes']['images']));
+
+    }
+
+    public function test_update_uploading_images()
+    {
+        $product = Product::factory()->create();
+        Storage::fake('images');
+
+        $data['images'] = [
+            UploadedFile::fake()->image('product-01.jpg')
+        ];
+
+        Sanctum::actingAs( User::factory()->create() );
+
+        $response = $this
+            ->put( route('products.update', $product->id), $data, ['Accept' => 'application/json'])
+            ->assertStatus(201)
+            ->assertJsonStructure([
+                'data' => [
+                    'type',
+                    'id',
+                    'attributes' => [
+                        'name',
+                        'slug',
+                        'description',
+                        'price',
+                        'status',
+                        'stock',
+                        'images' => [
+                            '*' => [ 'url' ]
+                        ]
+                    ]
+                ]
+            ]);
+
+        $this->assertEquals( count($response['data']['attributes']['images']), $product->getMedia('images')->count());
     }
 
 }

@@ -47,6 +47,14 @@ class ProductController extends Controller
         $data = array_merge( $request->all(), ['slug' => $slug]);
         $product = Product::create( $data );
 
+        if( $request->hasFile('images') ){
+
+            $product
+                ->addMultipleMediaFromRequest(['images'])
+                ->each( fn($file)=> $file->toMediaCollection('images') );
+
+        }
+
         return response()->json([
             'data' => new ProductResource( $product )
         ], 201 );
@@ -93,6 +101,12 @@ class ProductController extends Controller
                     'message' => "Product with id {$productId} not found."
                 ]
             ], 404);
+        }
+
+        if( $request->hasFile('images') ){
+            $product
+                ->addMultipleMediaFromRequest(['images'])
+                ->each( fn($file)=> $file->toMediaCollection('images') );
         }
 
         $product->update( $request->all() );
