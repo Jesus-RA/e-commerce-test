@@ -3,6 +3,7 @@
 namespace Database\Factories\Product;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -21,9 +22,11 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name();
+
         return [
-            'name' => $this->faker->colorName(),
-            'slug' => $this->faker->slug(),
+            'name' => $name,
+            'slug' => Str::slug($name),
             'description' => $this->faker->text(),
             'price' => $this->faker->randomFloat(2),
             'status' => $this->faker->randomElement([true, false]),
