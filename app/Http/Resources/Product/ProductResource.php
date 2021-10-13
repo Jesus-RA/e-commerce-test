@@ -24,6 +24,12 @@ class ProductResource extends JsonResource
                 'price' => $this->price,
                 'status' => $this->status,
                 'stock' => $this->stock,
+                'images' => $this->getMedia('images')->map(fn($image) => [
+                    'type' => 'images',
+                    'attributes' => [
+                        'url'
+                    ]
+                ])
             ]
         ];
 

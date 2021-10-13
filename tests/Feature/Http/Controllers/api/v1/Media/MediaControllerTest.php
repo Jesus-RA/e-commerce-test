@@ -68,4 +68,5 @@ class MediaControllerTest extends TestCase
                 ]
             ]);
     }
+
 }

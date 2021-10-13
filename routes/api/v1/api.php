@@ -15,9 +15,10 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 Route::middleware('auth:sanctum')->group(function(){
 
     Route::apiResource('users', UserController::class);
-    Route::apiResource('products', ProductController::class);
+    Route::apiResource('products', ProductController::class)->except('index');
     Route::post('media', [MediaController::class, 'store'])->name('media.store');
 
 });
 
+Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::post('orders', [OrderController::class, 'store'])->name('orders.store');

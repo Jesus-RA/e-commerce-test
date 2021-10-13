@@ -34,7 +34,15 @@ class ProductControllerTest extends TestCase
                             'description',
                             'price',
                             'status',
-                            'stock'
+                            'stock',
+                            'images' => [
+                                '*' => [
+                                    'type',
+                                    'attributes' => [
+                                        'url'
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]
@@ -61,6 +69,14 @@ class ProductControllerTest extends TestCase
                         'price',
                         'status',
                         'stock',
+                        'images' => [
+                            '*' => [
+                                'type',
+                                'attributes' => [
+                                    'url'
+                                ]
+                            ]
+                        ]
                     ]
                 ]
             ]);
@@ -86,6 +102,14 @@ class ProductControllerTest extends TestCase
                         'price',
                         'status',
                         'stock',
+                        'images' => [
+                            '*' => [
+                                'type',
+                                'attributes' => [
+                                    'url'
+                                ]
+                            ]
+                        ]
                     ]
                 ]
             ]);
@@ -113,6 +137,14 @@ class ProductControllerTest extends TestCase
                         'price',
                         'status',
                         'stock',
+                        'images' => [
+                            '*' => [
+                                'type',
+                                'attributes' => [
+                                    'url'
+                                ]
+                            ]
+                        ]
                     ]
                 ]
             ]);

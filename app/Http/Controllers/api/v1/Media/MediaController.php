@@ -40,4 +40,29 @@ class MediaController extends Controller
             'data' => $images
         ], 201);
     }
+
+    public function show(Int $productId)
+    {
+        $product = Product::find( $productId );
+
+        if( !$product ){
+            return response()->json([
+                'error' => [
+                    'message' => "Product with id {$productId} no found."
+                ]
+            ], 404 );
+        }
+
+        $images = $product->getMedia('images')->map( fn($image) => [
+            'type' => 'images',
+            'attributes' => [
+                'url' => $image->getUrl()
+            ]
+        ]);
+
+        return response()->json([
+            'data' => $images
+        ], 200);
+
+    }
 }
