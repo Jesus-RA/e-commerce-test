@@ -5,3 +5,7 @@ export const getProducts = (state) => {
 export const getProductBySlug = (state) => (slug) => {
     return state.products.find( product => product.slug == slug )
 }
+
+export const getSelectedProductId = (state) => {
+    return state.selectedProductId
+}
