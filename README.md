@@ -17,6 +17,9 @@ composer install
 npm install
 ```
 
+#### Create .env file
+* Copy .env.example file and rename it to .env
+
 #### Generate project key
 ```
 php artisan key:generate
@@ -28,7 +31,7 @@ php artisan test
 ```
 
 #### Configure sqlite database
-* Copy .env.example file and replace the DB configuration with the next.
+* In .env file replace the DB configuration with the next.
 ```
 DB_CONNECTION=sqlite
 #DB_HOST=127.0.0.1
