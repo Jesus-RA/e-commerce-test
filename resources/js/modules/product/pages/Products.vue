@@ -22,10 +22,7 @@ export default {
     },
     computed: {
       ...mapGetters('productModule', ['getProducts']),
-    },
-    created(){
-      this.fetchProducts()
-    },
+    }
 }
 </script>
 

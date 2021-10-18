@@ -4,27 +4,20 @@
     @click="$router.push({ name: 'product-details', params: { slug: product.slug } })"
   >
     <div class="card border-0 shadow-sm" style="width: 18rem;">
-      <img
-        v-for="(image, index) in product.images"
-        :key="index"
-        :src="image.url"
-        class="card-img-top"
-        :alt="product.name"
-      >
+      <ImagesCarousel :images="product.images" />
 
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text">{{ product.description }}</p>
-        <p>Price: {{ product.price }}</p>
-        <button class="btn btn-primary btn-sm float-right">
-          Add to cart
-        </button>
+        <p>Price: {{ this.formatter.format(product.price) }}</p>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CurrencyFormatter from '../../shopping-cart/helpers/CurrencyFormatter'
 export default {
   props: {
     product: {
@@ -32,6 +25,14 @@ export default {
       required: true
     }
   },
+  data(){
+    return {
+      formatter: CurrencyFormatter
+    }
+  },
+  components: {
+    ImagesCarousel: () => import('../../shared/components/ImagesCarousel.vue')
+  }
 }
 </script>
 
