@@ -182,7 +182,7 @@ class ProductControllerTest extends TestCase
 
         $this
             ->post( route('products.store'), $product->toArray(), ['Accept' => 'application/json'])
-            ->assertStatus(404)
+            ->assertStatus(409)
             ->assertJsonStructure([
                 'error' => [
                     'message'
