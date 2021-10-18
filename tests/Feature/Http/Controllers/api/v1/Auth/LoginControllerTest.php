@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers\api\v1\Auth;
 
 use Tests\TestCase;
 use App\Models\User;
+use Laravel\Sanctum\Sanctum;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -36,5 +37,14 @@ class LoginControllerTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    public function test_it_can_logout()
+    {
+        Sanctum::actingAs( User::factory()->create() );
+
+        $this
+            ->post( route('logout') )
+            ->assertNoContent();
     }
 }

@@ -16,7 +16,7 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);
 
-        if( !Auth::attempt( $credentials, true ) ){
+        if( !Auth::attempt( $credentials ) ){
             return response()->json([
                 'error' => [
                     'message' => 'Credentials no match our records.'
@@ -29,5 +29,13 @@ class LoginController extends Controller
             'data' => new UserResource( Auth::user() )
         ], 200);
 
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return response()->noContent();
     }
 }
