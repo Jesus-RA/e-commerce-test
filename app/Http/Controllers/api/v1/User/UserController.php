@@ -91,7 +91,7 @@ class UserController extends Controller
         $user->update( $request->all() );
 
         return response()->json([
-            'data' => new UserResource( $user->fresh() )
+            'data' => new UserResource( $user )
         ], 201 );
     }
 
