@@ -27,6 +27,17 @@ php artisan key:generate
 php artisan test
 ```
 
+#### Configure sqlite database
+Copy .env.example file and replace the DB configuration with the next.
+```
+DB_CONNECTION=sqlite
+#DB_HOST=127.0.0.1
+#DB_PORT=3306
+#DB_DATABASE=e_commerce_test
+#DB_USERNAME=root
+#DB_PASSWORD=
+```
+
 #### Seed data to watch how the project look with data
 ```
 php artisan db:seed
