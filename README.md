@@ -28,7 +28,7 @@ php artisan test
 ```
 
 #### Configure sqlite database
-Copy .env.example file and replace the DB configuration with the next.
+* Copy .env.example file and replace the DB configuration with the next.
 ```
 DB_CONNECTION=sqlite
 #DB_HOST=127.0.0.1
@@ -37,6 +37,9 @@ DB_CONNECTION=sqlite
 #DB_USERNAME=root
 #DB_PASSWORD=
 ```
+
+* Create database.sqlite file in ./database
+* Execute command `php artisan migrate` to create all the database tables
 
 #### Seed data to watch how the project look with data
 ```
@@ -53,6 +56,11 @@ php artisan serve
 ##### Webpack serve
 ```
 npm run watch
+```
+
+#### To upload images for products set the environment variable
+```
+MEDIA_DISK="products"
 ```
 
 ## Admin credentials

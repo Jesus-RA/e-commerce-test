@@ -18,43 +18,45 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $products = Product::factory()->times(20)->create();
+        
+        $this->populateImages();
 
         foreach ($products as $product){
 
-            $images = array_filter(Storage::disk( 'products' )->files(), function($file){
+            $images = array_filter(File::files( public_path('images/products') ), function($file){
                 return $file != '.DS_Store';
             });
 
             if( empty($images) ){
 
-                $initialFiles = array_filter(Storage::disk('products')->files('initial'), function($file){
-                    return $file != 'initial/.DS_Store';
-                });
-                
-                foreach($initialFiles as $initialFile){
+                $this->populateImages();
 
-                    $filename = Str::replace('initial/', '', $initialFile);
-                    File::copy(
-                        public_path("products/{$initialFile}") ,
-                        public_path( "products/{$filename}")
-                    );
-                }
-
-                $images = array_filter(Storage::disk( 'products' )->files(), function($file){
+                $images = array_filter(File::files( public_path('images/products') ), function($file){
                     return $file != '.DS_Store';
                 });
 
             }
 
-            $images = array_map(function($image){
-                return public_path("products/{$image}");
-            }, array_values($images));
-
-
+            $randomNumber = random_int(0, sizeof($images)-1);
             $product
-                ->addMedia( $images[ random_int(0, sizeof($images)-1) ] )
+                ->addMedia( $images[ $randomNumber ]->getPathname() )
                 ->toMediaCollection('images');
                 
+        }
+    }
+
+    public function populateImages()
+    {
+        $initialFiles = array_filter(File::files( public_path('images/initial-images') ), function($file){
+            return $file != 'initial/.DS_Store';
+        });
+
+        foreach($initialFiles as $initialFile){
+
+            File::copy(
+                $initialFile->getPathname() ,
+                public_path( "images/products/{$initialFile->getFilename()}")
+            );
         }
     }
 }
