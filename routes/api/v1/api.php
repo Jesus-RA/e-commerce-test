@@ -17,6 +17,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('users', UserController::class);
     Route::apiResource('products', ProductController::class)->except('index');
     Route::post('media', [MediaController::class, 'store'])->name('media.store');
+    Route::get('checkAuth', fn() => response()->noContent() );
 
 });
 

@@ -40,7 +40,7 @@ class ProductController extends Controller
                 'error' => [
                     'message' => 'The product already exists.'
                 ]
-            ], 404);
+            ], 409);
 
         }
 
@@ -94,7 +94,7 @@ class ProductController extends Controller
     public function update(Request $request, Int $productId)
     {
         $product = Product::find( $productId );
-        
+
         if( !$product ){
             return response()->json([
                 'error' => [
@@ -110,6 +110,7 @@ class ProductController extends Controller
         // }
 
         $product->update( $request->all() );
+        $product->update(['slug' => Str::slug($request->name)]);
 
         return response()->json([
             'data' => new ProductResource( $product )

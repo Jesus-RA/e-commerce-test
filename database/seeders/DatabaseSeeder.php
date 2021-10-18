@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory()->create([
-            'email' => 'admin@webforcehq',
+            'email' => 'admin@webforcehq.com',
             'password' => Hash::make('webforce')
         ]);
 

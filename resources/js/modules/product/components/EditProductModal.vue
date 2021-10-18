@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { required } from 'vuelidate/lib/validators'
 
 export default {
@@ -77,12 +77,12 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('productModule', ['getSelectedProductId'])
+        ...mapState('productModule', ['selectedProductId'])
     },
     methods: {
         ...mapActions('productModule', ['fetchProduct', 'updateProduct']),
         handleUpdateProduct(closeModal){
-            const productData = { id: this.getSelectedProductId, ...this.product }
+            const productData = { id: this.selectedProductId, ...this.product }
 
             this.updateProduct( productData )
             this.clearData()
@@ -106,7 +106,7 @@ export default {
             this.status = false
         },
         async handleOpenModal(){
-            this.product = await this.fetchProduct( this.getSelectedProductId )
+            this.product = await this.fetchProduct( this.selectedProductId )
         }
     },
     components: {
