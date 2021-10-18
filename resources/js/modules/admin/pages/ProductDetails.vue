@@ -8,7 +8,13 @@
         <div class="card shadow-sm p-5 border-0">
             <div class="row align-items-center">
                 <div class="col-md-5 p-0">
-                    <ImagesCarousel :images="product.images" />
+                    <img
+                        v-for="(image, index) in product.images"
+                        :key="index"
+                        :src="image.url"
+                        :alt="product.name"
+                        class="rounded"
+                    >
                 </div>
 
                 <div class="col ml-md-4">
@@ -46,9 +52,6 @@ export default {
     },
     computed: {
         ...mapGetters('productModule', ['getProductBySlug'])
-    },
-    components: {
-        ImagesCarousel: () => import('../../shared/components/ImagesCarousel.vue')
     }
 }
 </script>

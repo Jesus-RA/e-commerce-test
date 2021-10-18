@@ -57,6 +57,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import { addProduct } from '../store/mutations'
 import CurrencyFormatter from '../../shopping-cart/helpers/CurrencyFormatter'
 
 export default {
