@@ -69,7 +69,7 @@ export default {
                     toast: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timeout: 3000,
+                    timer: 3000,
                     icon: 'error',
                     title: `User with email ${ this.email } already exists`
                 })

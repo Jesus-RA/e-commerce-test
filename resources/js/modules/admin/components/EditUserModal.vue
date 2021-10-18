@@ -60,6 +60,15 @@ export default {
             }
             this.updateUser( user )
 
+            this.$swal({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                icon: 'success',
+                title: `User ${ this.user.name } successfully updated`
+            })
+
             closeModal()
         },
         async handleOpenModal(){
