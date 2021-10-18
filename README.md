@@ -45,6 +45,7 @@ DB_CONNECTION=sqlite
 * Execute command `php artisan migrate` to create all the database tables
 
 #### Seed data to watch how the project look with data
+Before seeding data make sure you have in your .env file APP_URL configured
 ```
 php artisan db:seed
 ```
