@@ -70,7 +70,7 @@ MEDIA_DISK="products"
 ## Admin credentials
 ```
 {
-    email: 'admin@webforcehq.com',
-    password: 'webforce'
+    email: 'admin@my-portfolio.digital',
+    password: 'password'
 }
 ```
